@@ -11,5 +11,19 @@ os:
   
 arm:
   - 5
-  
-script: go build ./cmd/test_server/
+
+stages:
+  - build
+  - deploy
+
+jobs:
+  fast_finish: true
+  exclude:
+    - arch: arm
+      os: windows
+      
+  include:
+    - stage: build
+      script: go build -v ./cmd/test_server/
+    - stage: deploy
+      script: env
