@@ -1,4 +1,15 @@
 language: go
 go: 1.13.x
 
+arch:
+  - amd64
+  - arm
+
+os:
+  - linux
+  - windows
+  
+arm:
+  - 5
+  
 script: go build ./cmd/test_server/
