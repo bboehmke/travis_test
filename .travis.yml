@@ -1,29 +1,20 @@
 language: go
 go: 1.13.x
-
-arch:
-  - amd64
-  - arm
-
-os:
-  - linux
-  - windows
-  
-arm:
-  - 5
-
-stages:
-  - build
-  - deploy
-
 jobs:
-  fast_finish: true
-  exclude:
-    - arch: arm
-      os: windows
-      
   include:
+    - stage: test
+      script: go test -v ./...
+      
     - stage: build
+      arch: amd64
+      os: linux
       script: go build -v ./cmd/test_server/
+      
+    - stage: build
+      arch: arm
+      os: linux
+      arm: 5
+      script: go build -v ./cmd/test_server/
+      
     - stage: deploy
       script: env
